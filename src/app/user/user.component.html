@@ -1,0 +1,28 @@
+<p>Users work!</p>
+<ul>
+  <li *ngFor="let user of users">
+    <!-- <div *ngIf="!user.editMode; else editMode"> -->
+    <p>Name: {{ user.name }}</p>
+    <p>Email: {{ user.email }}</p>
+    <p>Phone: {{ user.phone }}</p>
+    <!-- <button (click)="editUser(user)">Edit</button> -->
+    <!-- </div> -->
+  </li>
+  <!-- <ng-template #editMode>
+      <input type="text" [(ngModel)]="user.name" />
+      <input type="text" [(ngModel)]="user.email" />
+      <input type="text" [(ngModel)]="user.phone" />
+      <button (click)="updateUser(user)">Update</button>
+    </ng-template>
+  </li>
+</ul> -->
+
+  <!-- <input
+type="text"
+placeholder="Enter search term"
+[(ngModel)]="searchTerm"
+(keyup)="checkIfExists()"
+/>
+<p *ngIf="searchTerm !== '' && !userExists">User does not exist.</p>
+<p *ngIf="userExists">User exists.</p> -->
+</ul>
