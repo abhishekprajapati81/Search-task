@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+export interface User {
+  name: string;
+  email: string;
+  phone: number;
+}
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -8,8 +14,8 @@ import { Component, OnInit } from '@angular/core';
 export class UserComponent implements OnInit {
   searchTerm: string = '';
   userExists: boolean = false;
-  filteredUsers: any[] = [];
-  // users: any[] = [];
+  filteredUsers: User[] = [];
+  users!: User[];
   initialUsers = [
     { name: 'abhi', email: 'abhi@gmail.com', phone: 8128583430 },
     { name: 'abhi', email: 'abhi@gmail.com', phone: 8128583430 },
@@ -26,10 +32,35 @@ export class UserComponent implements OnInit {
   ];
 
   // using concat method
-  users = this.initialUsers.concat(this.additionalUsers).slice(0, 5);
 
   ngOnInit(): void {
-    console.log(this.users, 'concat method');
+    // const maxUsers = 5
+
+    // for (let i = 0; i < maxUsers; i++) {
+    //   const newUsers = {
+    //     name: `A${i + 1}`,
+    //     email: `a${i + 1}@gmail.com`,
+    //     phone: 123456789 + i,
+    //   };
+    //   this.initialUsers.push(newUsers);
+    // }
+    // console.log(this.initialUsers, 'autoincremet');
+
+    const maxUsers = 5;
+
+    Array.from({ length: maxUsers }).forEach((_, i) => {
+      const newUser = {
+        name: `A${i + 1}`,
+        email: `a${i + 1}@gmail.com`,
+        phone: 123456789 + i,
+      };
+      this.initialUsers.push(newUser);
+    });
+
+    console.log(this.initialUsers);
+
+    // this.users = this.initialUsers.concat(this.additionalUsers).slice(0, 5);
+    // console.log(this.users, 'concat method');
 
     // using join method
     const usersjoin = this.initialUsers
@@ -38,14 +69,15 @@ export class UserComponent implements OnInit {
     console.log('result', usersjoin);
 
     // push method
-    const newUser = {
-      name: 'raju',
-      email: 'raju@.com',
-      phone: 741852963,
-    };
-    this.users.push(newUser);
-    console.log(this.users, 'add new user');
+    // const newUser: User = {
+    //   name: 'raju',
+    //   email: 'raju@.com',
+    //   phone: 741852963,
+    // };
+    // this.users.push(newUser);
+    // console.log(this.users, 'add new user');
 
+    console.log(this.additionalUsers.shift());
     // pop method
     // this.additionalUsers.pop();
     // console.log(this.additionalUsers, 'pop user');
@@ -55,33 +87,35 @@ export class UserComponent implements OnInit {
     // console.log(this.initialUsers, 'reverse user');
 
     // using splice
-    const indexToRemove = this.users.findIndex((user) => user.name === 'emma');
-    if (indexToRemove !== -1) {
-      this.users.splice(indexToRemove, 1);
-    }
+    // const indexToRemove = this.users.findIndex((user) => user.name === 'emma');
+    // if (indexToRemove !== -1) {
+    //   this.users.splice(indexToRemove, 1);
+    //   console.log(this.users);
+    // }
 
     // remove duplicate array uisng filter
-    // const uniqueUsers = this.initialUsers.filter((user, index, self) => {
-    //   const key = user.name + '-' + user.email;
-    //   return (
-    //     index ===
-    //     self.findIndex((u) => {
-    //       return u.name === user.name && u.email === user.email;
-    //     })
-    //   );
-    // });
-    // console.log(uniqueUsers, 'remove duplicat user');
+    const uniqueUsers = this.initialUsers.filter((user, index, self) => {
+      const key = user.name + '-' + user.email;
+      return (
+        index ===
+        self.findIndex((u) => {
+          return u.name === user.name && u.email === user.email;
+        })
+      );
+    });
+    console.log(uniqueUsers, 'remove duplicat user');
 
+    // check phone number who greater than 9
     const filteredUsersPhone = this.initialUsers.filter(
       (user) => user.phone > 9000000000
     );
     console.log('Filtered Users by Phone:', filteredUsersPhone);
 
     // check who name is abhi
-    const filteredUsersByName = this.initialUsers.filter(
-      (user) => user.name === 'abhi'
-    );
-    console.log('Filtered Users by Name:', filteredUsersByName);
+    // const filteredUsersByName = this.initialUsers.filter(
+    //   (user) => user.name === 'abhi'
+    // );
+    // console.log('Filtered Users by Name:', filteredUsersByName);
 
     // check who email start with a
     const filteredEmails = this.initialUsers
@@ -90,12 +124,11 @@ export class UserComponent implements OnInit {
     console.log(filteredEmails);
 
     // dislay user using foreach
-    // this.initialUsers.forEach((user) => {
-    //   console.log(`name: ${user.name} email:${user.email} phone:${user.phone}`);
-    // });
+    this.initialUsers.forEach((user) => {
+      console.log(`name: ${user.name} email:${user.email} phone:${user.phone}`);
+    });
 
     // change user email using forEach
-
     this.initialUsers.forEach((user) => {
       if (user.name === 'abhi') user.email = 'for@gmail.com';
     });
