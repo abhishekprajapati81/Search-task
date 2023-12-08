@@ -1,4 +1,4 @@
-<input type="text" [formControl]="searchFrom" (input)="searchUser()" />
+<input type="text" [formControl]="searchFrom" />
 
 <div *ngIf="filteredUsers$ | async as users">
   <table>
